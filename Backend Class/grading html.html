@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Grade Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f6fa;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      color: #004aad;
+    }
+    table {
+      border-collapse: collapse;
+      width: 60%;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #004aad;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .summary {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #004aad;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎓 Student Grade Report</h1>
+  <table id="gradeTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Marks</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class="summary" id="average"></div>
+
+  <script>
+    // Step 1: Student data
+    const students = [
+      { name: "Faith Kemboi", marks: 85 },
+      { name: "John Doe", marks: 67 },
+      { name: "Mary Wambui", marks: 73 },
+      { name: "Alex Kimani", marks: 48 }
+    ];
+
+    // Step 2: Function to calculate grade
+    function calculateGrade(mark) {
+      if (mark >= 80) return "A";
+      else if (mark >= 70) return "B";
+      else if (mark >= 60) return "C";
+      else if (mark >= 50) return "D";
+      else return "E";
+    }
+
+    // Step 3: Display data in table
+    const tableBody = document.querySelector("#gradeTable tbody");
+    let total = 0;
+
+    students.forEach(student => {
+      const row = document.createElement("tr");
+      const grade = calculateGrade(student.marks);
+      total += student.marks;
+
+      row.innerHTML = `
+        <td>${student.name}</td>
+        <td>${student.marks}</td>
+        <td>${grade}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+    // Step 4: Display average
+    const average = total / students.length;
+    document.getElementById("average").textContent =
+      `Class Average: ${average.toFixed(2)}`;
+  </script>
+</body>
+</html>
